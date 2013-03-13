@@ -1,0 +1,15 @@
+PC simulator for my antenna_tracker
+see https://github.com/kwikius/quantracker for the antenna tracker part of the project
+
+GUI to move the aircraft and send the GPS info to the serial port to simulate the data from the plane
+see https://github.com/kwikius/mavlink_to_frsky for the airborne part of the project
+
+The code is written in C++11 , so you will ned gcc4.7 or above.
+
+Other dependencies:
+ 
+	wxWidgets http://www.wxwidgets.org/
+	my quan library:  https://github.com/kwikius/quan-trunk
+
+
+
