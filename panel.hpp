@@ -2,7 +2,8 @@
 #define QUANTRACKER_SIM_PANEL_HPP_INCLUDED
 
 
-#include <wx/panel.h>
+//#include <wx/panel.h>
+#include <wx/scrolwin.h>
 #include <wx/button.h>
 #include <wx/statline.h>
 #include <wx/slider.h>
@@ -11,7 +12,7 @@
 #include <wx/stattext.h>
 #include <wx/textctrl.h>
 
-struct panel : wxPanel
+struct panel : wxScrolledWindow// wxPanel
 {
   panel (wxWindow * parent); 
 private:

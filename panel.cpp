@@ -14,7 +14,8 @@
  add info from tracker v info computed locally
 */
 panel::panel(wxWindow* parent)
-: wxPanel{parent}
+//: wxPanel{parent}
+ :  wxScrolledWindow{parent}
 ,BtnConnect{nullptr}
 ,PortText{nullptr}
 ,LatText{nullptr}
@@ -22,6 +23,7 @@ panel::panel(wxWindow* parent)
 ,AltText{nullptr}
 ,AltitudeSlider{nullptr}
 {
+   // add scrolling
     window_ids::panel = this->GetId();
 
     auto vert_sizer = new wxBoxSizer(wxVERTICAL);
@@ -38,6 +40,30 @@ panel::panel(wxWindow* parent)
 
     auto vert_spacer1 =  new wxPanel{this,0,0, 1, 1, 0,  wxT("")};
     vert_sizer->Add(vert_spacer1,0,wxALL,10);
+
+      auto min_scale = 1; 
+     auto max_scale = 20; 
+     auto scale_sizer = new wxFlexGridSizer(2,2,4,4);
+
+     auto scale_spacer =  new wxPanel{this,0,0, 1, 1, 0,  wxT("")};
+     scale_sizer->Add(scale_spacer,0,wxALL,5);
+ 
+     ScaleText =new wxTextCtrl{
+         this,wxID_ANY,
+         wxT("0.01"),
+         wxDefaultPosition,wxSize(100,wxDefaultSize.GetHeight())
+    }; 
+
+        ScaleSlider = new wxSlider(this,idScaleSlider,min_scale,min_scale,max_scale, wxDefaultPosition,wxSize(200,wxDefaultSize.y ),
+    wxSL_HORIZONTAL ,wxDefaultValidator,wxT("Scale"));
+
+    scale_sizer->Add( ScaleText,0,wxALL,5);
+
+    auto scale_label = new wxStaticText{this,wxID_ANY, wxT("map scale"),wxDefaultPosition, wxDefaultSize, 0};
+    scale_sizer->Add(scale_label,0,wxALL,5);
+    
+    scale_sizer->Add(ScaleSlider,0,wxALL,5);
+    vert_sizer->Add(scale_sizer);
      
     auto & app = wxGetApp();
     auto doc = app.get_document();
@@ -138,29 +164,29 @@ panel::panel(wxWindow* parent)
     vert_sizer->Add(vert_spacer3,0,wxALL,10);
 
      // scale = 0.01 / scale slicer value;
-     auto min_scale = 1; 
-     auto max_scale = 20; 
-     auto scale_sizer = new wxFlexGridSizer(2,2,4,4);
+//     auto min_scale = 1; 
+//     auto max_scale = 20; 
+//     auto scale_sizer = new wxFlexGridSizer(2,2,4,4);
+//
+//     auto scale_spacer =  new wxPanel{this,0,0, 1, 1, 0,  wxT("")};
+//     scale_sizer->Add(scale_spacer,0,wxALL,5);
+// 
+//     ScaleText =new wxTextCtrl{
+//         this,wxID_ANY,
+//         wxT("0.01"),
+//         wxDefaultPosition,wxSize(100,wxDefaultSize.GetHeight())
+//    };
 
-     auto scale_spacer =  new wxPanel{this,0,0, 1, 1, 0,  wxT("")};
-     scale_sizer->Add(scale_spacer,0,wxALL,5);
- 
-     ScaleText =new wxTextCtrl{
-         this,wxID_ANY,
-         wxT("0.01"),
-         wxDefaultPosition,wxSize(100,wxDefaultSize.GetHeight())
-    };
-
-    ScaleSlider = new wxSlider(this,idScaleSlider,min_scale,min_scale,max_scale, wxDefaultPosition,wxSize(200,wxDefaultSize.y ),
-    wxSL_HORIZONTAL ,wxDefaultValidator,wxT("Scale"));
-
-    scale_sizer->Add( ScaleText,0,wxALL,5);
-
-    auto scale_label = new wxStaticText{this,wxID_ANY, wxT("map scale"),wxDefaultPosition, wxDefaultSize, 0};
-    scale_sizer->Add(scale_label,0,wxALL,5);
-    
-    scale_sizer->Add(ScaleSlider,0,wxALL,5);
-    vert_sizer->Add(scale_sizer);
+//    ScaleSlider = new wxSlider(this,idScaleSlider,min_scale,min_scale,max_scale, wxDefaultPosition,wxSize(200,wxDefaultSize.y ),
+//    wxSL_HORIZONTAL ,wxDefaultValidator,wxT("Scale"));
+//
+//    scale_sizer->Add( ScaleText,0,wxALL,5);
+//
+//    auto scale_label = new wxStaticText{this,wxID_ANY, wxT("map scale"),wxDefaultPosition, wxDefaultSize, 0};
+//    scale_sizer->Add(scale_label,0,wxALL,5);
+//    
+//    scale_sizer->Add(ScaleSlider,0,wxALL,5);
+//    vert_sizer->Add(scale_sizer);
       
     auto horz_sizer = new wxBoxSizer(wxHORIZONTAL);
     auto min_alt = 0; // meters
@@ -173,6 +199,10 @@ panel::panel(wxWindow* parent)
     this->SetSizer(horz_sizer);
     this->Layout();
     horz_sizer->Fit(this);
+
+        // this part makes the scrollbars show up
+        this->FitInside(); // ask the sizer about the needed size
+        this->SetScrollRate(5, 5);
 }
 
 BEGIN_EVENT_TABLE(panel, wxPanel)
