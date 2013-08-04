@@ -24,11 +24,11 @@
 
 void FrSky_send_message();
 
-void update_aircraft_gps_position(
-   quan::uav::position<  
-      quan::angle_<int32_t>::deg10e7,
-      quan::length_<int32_t>::m 
-   > const & p
-);
+//void update_aircraft_gps_position(
+//   quan::uav::position<  
+//      quan::angle_<int32_t>::deg10e7,
+//      quan::length_<int32_t>::m 
+//   > const & p
+//);
 
 #endif //QUANTRACKER_SIM_FRSKY_HPP_INCLUDED

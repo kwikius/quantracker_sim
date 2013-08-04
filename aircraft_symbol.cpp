@@ -1,7 +1,7 @@
 #include "aircraft_symbol.hpp"
     
 quan::two_d::vect<quan::length::mm> 
-aircraft_symbol::m_array[] =  
+aircraft_symbol::m_array[aircraft_symbol::num_points] =  
 {
    {mm{0},mm{0 + 230}},
    {mm{200},mm{-165 + 230}},

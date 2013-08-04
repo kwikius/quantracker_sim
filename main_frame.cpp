@@ -20,6 +20,7 @@
 #include "frsky.hpp"
 #include "document.hpp"
 #include "sp_in_thread.hpp"
+#include "aircraft.hpp"
 
 //helper functions
 enum wxbuildinfoformat {

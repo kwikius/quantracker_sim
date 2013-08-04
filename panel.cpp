@@ -27,13 +27,21 @@ panel::panel(wxWindow* parent)
     window_ids::panel = this->GetId();
 
     auto vert_sizer = new wxBoxSizer(wxVERTICAL);
+
+ 
        auto sp_sizer =  new wxFlexGridSizer(2,2,4,4);
        auto port_label = new wxStaticText{this,wxID_ANY, wxT("serial port"),wxDefaultPosition, wxDefaultSize, 0};
          sp_sizer->Add(port_label,0,wxALL,5);
        PortText = new wxTextCtrl{this,wxID_ANY, wxT("/dev/ttyUSB0"), wxDefaultPosition,wxSize(200,wxDefaultSize.GetHeight())};
          sp_sizer->Add(PortText,0,wxALL,5);
+#if 0
        auto sp_sizer_spacer =  new wxPanel{this,0,0, 1, 1, 0,  wxT("")};
          sp_sizer->Add(sp_sizer_spacer);
+#else
+       wxString choices[] = {wxT("COBS"),wxT("ByteStuff")};
+       ProtocolChooser = new wxRadioBox(this,idProtocolChooser,wxT("Protocol"),wxDefaultPosition,wxDefaultSize,2,choices);
+       sp_sizer->Add(ProtocolChooser);
+#endif
        BtnConnect = new wxButton(this, idBtnConnect, wxT("Connect"), wxDefaultPosition, wxSize(100,wxDefaultSize.GetHeight()), 0);
          sp_sizer->Add(BtnConnect,0,wxALL,5);
     vert_sizer->Add(sp_sizer);
@@ -54,7 +62,7 @@ panel::panel(wxWindow* parent)
          wxDefaultPosition,wxSize(100,wxDefaultSize.GetHeight())
     }; 
 
-        ScaleSlider = new wxSlider(this,idScaleSlider,min_scale,min_scale,max_scale, wxDefaultPosition,wxSize(200,wxDefaultSize.y ),
+    ScaleSlider = new wxSlider(this,idScaleSlider,min_scale,min_scale,max_scale, wxDefaultPosition,wxSize(200,wxDefaultSize.y ),
     wxSL_HORIZONTAL ,wxDefaultValidator,wxT("Scale"));
 
     scale_sizer->Add( ScaleText,0,wxALL,5);

@@ -15,30 +15,44 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
+/*
+   
+   create a message in ByteStuff format
+   Each message is 7 bytes long
+########################################
+   not very satisfactory here as Frame Character is really from the higher level protocol
+   message[0] is the  Frame character
+###############################
+   message[1] is the message id
+   message[2:5] is the value (in little endian format?)
+   message[6] is the checksum
+
+*/
+
 #include "app.h"
 #include "frsky.hpp"
-//#include "aircraft.hpp"
+#include "aircraft.hpp"
 #include <quan/serial_port.hpp>
 #include <quan/utility/fifo.hpp>
-
-#include <quan/uav/position.hpp>
-
-namespace {
-
-   quan::uav::position<  
-      quan::angle_<int32_t>::deg10e7,
-      quan::length_<int32_t>::m 
-   >  aircraft_gps_position;
-
-}
-
-void update_aircraft_gps_position(     quan::uav::position<  
-      quan::angle_<int32_t>::deg10e7,
-      quan::length_<int32_t>::m 
-   > const & p)
-{
-   aircraft_gps_position = p;
-}  
+//
+//#include <quan/uav/position.hpp>
+//
+//namespace {
+//
+//   quan::uav::position<  
+//      quan::angle_<int32_t>::deg10e7,
+//      quan::length_<int32_t>::m 
+//   >  aircraft_gps_position;
+//
+//}
+//
+//void update_aircraft_gps_position(     quan::uav::position<  
+//      quan::angle_<int32_t>::deg10e7,
+//      quan::length_<int32_t>::m 
+//   > const & p)
+//{
+//   aircraft_gps_position = p;
+//}  
 
 namespace {
 
@@ -97,6 +111,8 @@ namespace {
        return static_cast<uint8_t>(sum);
    }
    // sort so lat and lon are uint32_t.. currently int32_t
+   // unfortunately the checksum includes the higher level protocol header value
+   // we could make the checksum start with that value?
    template<typename T>
    create_message<T>::create_message(uint8_t msg_id, T const & val)
    {
@@ -154,6 +170,10 @@ namespace {
 
    quan::fifo<uint8_t,1000> buffer;
 
+   // write data into the buffer in the higher level bytestuff protocol
+   // packet is assumed to be len bytes long
+   // start_of_frame is true if its the start of a new higher level frame
+   // the frame is then in
    inline int16_t esc_write_sp(uint8_t * buf, int16_t len, bool start_of_frame)
    {
      // auto & app =wxGetApp();
@@ -231,9 +251,8 @@ namespace {
    }
    //return actual num of uint8_ts written in escapes
    int16_t update_lat_msg1()
- 
    {
-       lat_msg = normalise_angle(aircraft_gps_position.lat);
+       lat_msg = normalise_angle(get_aircraft_gps_position().lat);
        return esc_write_sp(lat_msg.get(), 2, true);
    }
    int16_t update_lat_msg2()
@@ -248,7 +267,7 @@ namespace {
    //longtitude
    int16_t update_lon_msg1()
    {
-      lon_msg = normalise_angle(aircraft_gps_position.lon);
+      lon_msg = normalise_angle(get_aircraft_gps_position().lon);
       return esc_write_sp(lon_msg.get(), 2, true);
    }
 
@@ -264,7 +283,7 @@ namespace {
    //altitude
    int16_t update_baroalt_msg1()
    {
-      baroalt_msg = static_cast<int32_t>(aircraft_gps_position.alt.numeric_value());
+      baroalt_msg = static_cast<int32_t>(get_aircraft_gps_position().alt.numeric_value());
       return esc_write_sp(baroalt_msg.get(),2,true);
    }
    int16_t update_baroalt_msg2()

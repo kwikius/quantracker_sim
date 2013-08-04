@@ -11,6 +11,7 @@
 #include <wx/sizer.h>
 #include <wx/stattext.h>
 #include <wx/textctrl.h>
+#include <wx/radiobox.h>
 
 struct panel : wxScrolledWindow// wxPanel
 {
@@ -23,7 +24,8 @@ private:
       idTimer,
       idBtnConnect,
       idAltitudeSlider,
-      idScaleSlider
+      idScaleSlider,
+      idProtocolChooser
    };
 
    DECLARE_EVENT_TABLE()
@@ -55,6 +57,8 @@ private:
 
    wxSlider* ScaleSlider;  
    wxSlider* AltitudeSlider;  
+
+   wxRadioBox* ProtocolChooser;
 
 };
 
