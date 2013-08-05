@@ -8,7 +8,6 @@ void update_aircraft_gps_position(     quan::uav::position<
       quan::length_<int32_t>::m 
    > const & p);
 
-
  quan::uav::position<  
       quan::angle_<int32_t>::deg10e7,
       quan::length_<int32_t>::m 

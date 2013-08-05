@@ -17,7 +17,7 @@
 
 #include "main_frame.h"
 #include <wx/splitter.h>
-#include "frsky.hpp"
+#include "bytestuff.hpp"
 #include "document.hpp"
 #include "sp_in_thread.hpp"
 #include "aircraft.hpp"
@@ -130,12 +130,15 @@ void main_frame::OnAbout(wxCommandEvent &event)
     wxMessageBox(msg, _("Welcome to..."));
 }
 
+/*
+ Timer represents the update rate of the  airborne telemetry unit
+*/
 void main_frame::OnTimer(wxTimerEvent &event)
 {
    if (wxGetApp().have_sp()){
       auto & app = wxGetApp();
       auto doc = app.get_document();
       update_aircraft_gps_position( doc->get_aircraft_gps_position<quan::angle::deg, quan::length::m>());
-      FrSky_send_message();
+      ByteStuff_send_message();
    }
 }
