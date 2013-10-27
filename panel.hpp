@@ -16,6 +16,11 @@
 struct panel : wxScrolledWindow// wxPanel
 {
   panel (wxWindow * parent); 
+
+  bool want_cobs_protocol() const
+  {
+      return ProtocolChooser->GetSelection() ==0;
+  }
 private:
    enum
    {

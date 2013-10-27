@@ -16,8 +16,8 @@
 #endif //__BORLANDC__
 
 #include "main_frame.h"
-#include <wx/splitter.h>
 #include "bytestuff.hpp"
+#include "cobs.hpp"
 #include "document.hpp"
 #include "sp_in_thread.hpp"
 #include "aircraft.hpp"
@@ -139,6 +139,11 @@ void main_frame::OnTimer(wxTimerEvent &event)
       auto & app = wxGetApp();
       auto doc = app.get_document();
       update_aircraft_gps_position( doc->get_aircraft_gps_position<quan::angle::deg, quan::length::m>());
-      ByteStuff_send_message();
+
+      if ( m_splitter->m_panel->want_cobs_protocol()){
+         COBS_send_message();
+      }else{
+         ByteStuff_send_message();
+      }
    }
 }
