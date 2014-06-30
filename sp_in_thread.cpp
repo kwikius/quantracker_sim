@@ -52,7 +52,7 @@ namespace {
                
                float v = quan::convert<float>(&buffer[10]);
                auto & app = wxGetApp();
-               wxGetApp().get_document()->m_remote_tracker_params.bearing = quan::angle::deg{v};
+               app.get_document()->m_remote_tracker_params.bearing = quan::angle::deg{v};
                QuanTrackerSimEvent x{wxEvent_RemoteBearingChanged};
                app.get_panel()->AddPendingEvent(x);
             }
@@ -62,7 +62,7 @@ namespace {
             if (strncmp(buffer,"elevation = ",12) ==0){
                float v = quan::convert<float>(&buffer[12]);
                auto & app = wxGetApp();
-               wxGetApp().get_document()->m_remote_tracker_params.elevation = quan::angle::deg{v};
+               app.get_document()->m_remote_tracker_params.elevation = quan::angle::deg{v};
                QuanTrackerSimEvent x{wxEvent_RemoteElevationChanged};
                app.get_panel()->AddPendingEvent(x);
             }
