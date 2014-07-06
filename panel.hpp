@@ -42,6 +42,7 @@ private:
    void OnRemoteBearingChanged(wxEvent& event);
    void OnAltitudeSlider(wxScrollEvent & event);
    void OnScaleSlider(wxScrollEvent & event);
+   void OnProtocolChanged(wxCommandEvent& event);
  
    
    wxButton* BtnConnect;

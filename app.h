@@ -27,7 +27,8 @@ public:
    quantracker_simApp();
    virtual bool OnInit();
    ~quantracker_simApp();
-   document* get_document()const {return m_document;}
+   document* get_document()const {assert(m_document);return m_document;}
+   main_frame* get_main_frame()const{assert(m_frame); return m_frame;}
    view * get_view()const;
    void set_sp(quan::serial_port* sp_in)
    {

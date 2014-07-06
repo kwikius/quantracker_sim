@@ -14,10 +14,9 @@
     #include <wx/wx.h>
 #endif
 
-#include <wx/panel.h>
-#include "app.h"
-#include "splitter.hpp"
-#include "sp_in_thread.hpp"
+class sp_in_thread;
+class splitter;
+class panel;
 
 class main_frame: public wxFrame
 {
@@ -45,6 +44,7 @@ class main_frame: public wxFrame
        
        friend class quantracker_simApp;
        friend class sp_in_thread;
+       friend class panel;
 };
 
 

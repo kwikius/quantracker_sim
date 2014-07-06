@@ -22,6 +22,10 @@
 #include "sp_in_thread.hpp"
 #include "aircraft.hpp"
 
+#include "app.h"
+#include "splitter.hpp"
+#include "sp_in_thread.hpp"
+
 //helper functions
 enum wxbuildinfoformat {
     short_f, long_f };
@@ -84,7 +88,11 @@ main_frame::main_frame(wxFrame *frame, const wxString& title)
 #endif // wxUSE_STATUSBAR
 
     Timer= new wxTimer{this,idTimer};
-    Timer->Start(20,false); // timer repeats every 40 ms
+   // for cobs want update rate of 12 hz so each of 3 vars
+   // is updated once every 1/4 sec
+    // 83 Ms gives approx correct ( off by 1/1000 of a sec)
+   
+    Timer->Start(83,wxTIMER_CONTINUOUS); 
 
     m_sp_in_thread = new sp_in_thread(this);
     m_sp_in_thread->Create();
