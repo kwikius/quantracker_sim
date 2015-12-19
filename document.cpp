@@ -27,6 +27,13 @@ document::document()
 //   return {dx,dy,dz}; 
 //}
 
+namespace {
+constexpr quan::angle_<double>::rad pi_again_again 
+= quan::angle_<
+    double
+>::rad(3.141592653589793238462643383279502884197);
+}
+
 tracker_params document::get_tracker_params()const
 {
 
@@ -34,7 +41,7 @@ tracker_params document::get_tracker_params()const
    quan::length::m  h_distance = quan::sqrt(pos.x * pos.x + pos.y * pos.y);
    if ( abs(h_distance) > quan::length::mm{100}){
        
-      quan::angle::deg bearing = quan::atan2(-pos.y, pos.x) + quan::angle::pi/2;
+      quan::angle::deg bearing = quan::atan2(-pos.y, pos.x) + pi_again_again/2;
       if ( bearing < quan::angle::deg{0}){
          bearing += quan::angle::deg{360};
       }
