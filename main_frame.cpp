@@ -88,11 +88,8 @@ main_frame::main_frame(wxFrame *frame, const wxString& title)
 #endif // wxUSE_STATUSBAR
 
     Timer= new wxTimer{this,idTimer};
-   // for cobs want update rate of 12 hz so each of 3 vars
-   // is updated once every 1/4 sec
-    // 83 Ms gives approx correct ( off by 1/1000 of a sec)
-   
-    Timer->Start(83,wxTIMER_CONTINUOUS); 
+    // update rate of 1/5th sec
+    Timer->Start(200,wxTIMER_CONTINUOUS); 
 
     m_sp_in_thread = new sp_in_thread(this);
     m_sp_in_thread->Create();

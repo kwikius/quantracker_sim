@@ -42,6 +42,7 @@ class main_frame: public wxFrame
         wxCriticalSection m_thread_CS;
         sp_in_thread* m_sp_in_thread;
        
+       void start_sp_thread();
        friend class quantracker_simApp;
        friend class sp_in_thread;
        friend class panel;

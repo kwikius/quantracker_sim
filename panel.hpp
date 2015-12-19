@@ -43,7 +43,7 @@ private:
    void OnAltitudeSlider(wxScrollEvent & event);
    void OnScaleSlider(wxScrollEvent & event);
    void OnProtocolChanged(wxCommandEvent& event);
- 
+   void OnProtocolChanged();
    
    wxButton* BtnConnect;
    wxTextCtrl* PortText;

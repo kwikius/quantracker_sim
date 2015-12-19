@@ -234,9 +234,13 @@ void panel::OnConnectDisconnect (wxCommandEvent &event)
       if (testsp->good()) {
          app.m_sp_CS.Enter();
          wxGetApp().set_sp (testsp);
+         OnProtocolChanged();
          app.m_sp_CS.Leave();
          testsp =0;
          BtnConnect->SetLabel (wxT ("Disconnect"));
+         // grey ProtocolChooser
+         ProtocolChooser->Enable(0,false);
+         ProtocolChooser->Enable(1,false);
          return;
       }
       else {
@@ -250,6 +254,9 @@ void panel::OnConnectDisconnect (wxCommandEvent &event)
          app.close_sp();
          app.m_sp_CS.Leave();
       }
+      // ungrey ProtocolChooser
+      ProtocolChooser->Enable(0,true);
+      ProtocolChooser->Enable(1,true);
       BtnConnect->SetLabel (wxT ("Connect"));
    }
 }
@@ -297,14 +304,21 @@ void panel::OnRemoteElevationChanged (wxEvent& event)
    RemoteElevationText->ChangeValue (wxString::Format (wxT ("%f deg"),elevation.numeric_value()));
 }
 
-void panel::OnProtocolChanged (wxCommandEvent& event)
+void panel::OnProtocolChanged ()
 {
    auto & app = wxGetApp();
   
    if (this->want_cobs_protocol()) {
-     app.get_main_frame()->Timer->Start(83,wxTIMER_CONTINUOUS); 
+     app.get_main_frame()->Timer->Start(100,wxTIMER_CONTINUOUS); 
+     app.get_sp()->set_baud(9600);
    } else {
      app.get_main_frame()->Timer->Start(20,wxTIMER_CONTINUOUS); 
+     app.get_sp()->set_baud(9600);
    }
+}
+
+void panel::OnProtocolChanged (wxCommandEvent& )
+{
+   // this->OnProtocolChanged();
 }
 
