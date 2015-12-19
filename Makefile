@@ -38,12 +38,13 @@ INCLUDES = -I$(QUAN_INCLUDE_PATH) -I$(C_INCLUDE_PATH)
 #########################################################
 
 local_sources = aircraft.cpp aircraft_symbol.cpp app.cpp bytestuff.cpp cobs.cpp document.cpp \
-drawing.cpp events.cpp main_frame.cpp panel.cpp sp_in_thread.cpp splitter.cpp view.cpp \
+drawing.cpp events.cpp frsky.cpp main_frame.cpp panel.cpp sp_in_thread.cpp splitter.cpp view.cpp \
 window_ids.cpp
 
 local_objects = $(patsubst %.cpp,%.o,$(local_sources))
 
-quan_gx_wxwidgets_sources = draw_box.cpp draw_line.cpp draw_poly_line.cpp graphics_context.cpp 
+quan_gx_wxwidgets_sources = draw_box.cpp draw_circle.cpp draw_line.cpp draw_poly_line.cpp \
+graphics_context.cpp 
 
 quan_gx_wxwidgets_objects = $(patsubst %.cpp,%.o,$(quan_gx_wxwidgets_sources)) 
 
