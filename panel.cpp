@@ -45,15 +45,16 @@ panel::panel (wxWindow* parent)
    BtnConnect = new wxButton (this, idBtnConnect, wxT ("Connect"), wxDefaultPosition, wxSize (100,wxDefaultSize.GetHeight()), 0);
    sp_sizer->Add (BtnConnect,0,wxALL,5);
    vert_sizer->Add (sp_sizer);
-   
-   auto vert_spacer1 =  new wxPanel{this,0,0, 1, 1, 0,  wxT ("") };
+   // 
+   //auto vert_spacer1 =  new wxPanel{this,0,0, 1, 1, 0,  wxT ("") };
+   auto vert_spacer1 = new wxPanel{this,wxID_ANY,wxDefaultPosition,wxSize{1,1}};
    vert_sizer->Add (vert_spacer1,0,wxALL,10);
    
    auto min_scale = 1;
    auto max_scale = 20;
    auto scale_sizer = new wxFlexGridSizer (2,2,4,4);
    
-   auto scale_spacer =  new wxPanel{this,0,0, 1, 1, 0,  wxT ("") };
+   auto scale_spacer =  new wxPanel{this,wxID_ANY,wxDefaultPosition,wxSize{1,1}};
    scale_sizer->Add (scale_spacer,0,wxALL,5);
    
    ScaleText =new wxTextCtrl{
@@ -108,10 +109,10 @@ panel::panel (wxWindow* parent)
    
    vert_sizer->Add (gps_params_sizer);
    
-   auto vert_spacer2 =  new wxPanel{this,0,0, 1, 1, 0,  wxT ("") };
+   auto vert_spacer2 =  new wxPanel{this,wxID_ANY,wxDefaultPosition,wxSize{1,1}};
    vert_sizer->Add (vert_spacer2,0,wxALL,10);
    
-   auto pos_params_sizer = new wxFlexGridSizer (3,2,4,4);
+   auto pos_params_sizer = new wxFlexGridSizer (6,2,4,4);
    
    auto local_distance_label = new wxStaticText{this,wxID_ANY, wxT ("actual distance"),wxDefaultPosition, wxDefaultSize, 0};
    LocalDistanceText =  new wxTextCtrl{
@@ -168,7 +169,7 @@ panel::panel (wxWindow* parent)
    pos_params_sizer->Add (RemoteElevationText,0,wxALL,5);
    vert_sizer->Add (pos_params_sizer);
    
-   auto vert_spacer3 =  new wxPanel{this,0,0, 1, 1, 0,  wxT ("") };
+   auto vert_spacer3 =  new wxPanel{this,wxID_ANY,wxDefaultPosition,wxSize{1,1}};
    vert_sizer->Add (vert_spacer3,0,wxALL,10);
    
    auto horz_sizer = new wxBoxSizer (wxHORIZONTAL);

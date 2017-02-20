@@ -16,7 +16,7 @@
 #include "drawing.hpp"
 //#include "aerofoilDoc.hpp"
 
-   struct view : wxWindow{
+   struct view : wxScrolledCanvas{
 
       view(wxWindow* parent);
 
@@ -48,8 +48,6 @@
       quan::gx::simple_drawing_view m_drawing_view;
       quan::gx::simple_device_window m_device_window;
       
-      
-
       bool  m_aircraft_selected;
       vect3_mm  m_last_aircraft_position;
       DECLARE_EVENT_TABLE()

@@ -7,5 +7,5 @@ splitter::splitter(wxWindow* parent) : wxSplitterWindow(parent, wxID_ANY)
    SetMinimumPaneSize(400);
    m_view = new view(this);
    m_panel = new panel(this);
-   SplitVertically(m_view,m_panel);
+   SplitVertically(m_view,m_panel,2000);
 }

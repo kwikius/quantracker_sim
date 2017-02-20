@@ -21,14 +21,16 @@ BEGIN_EVENT_TABLE(view,wxWindow)
 END_EVENT_TABLE()
 
 view::view(wxWindow* parent)
-: wxWindow(parent, wxID_ANY)
+: wxScrolledCanvas(parent, wxID_ANY)
 ,m_aircraft_selected{false}
 
 {
     window_ids::view = this->GetId();
-    this->SetWindowStyle(wxVSCROLL | wxHSCROLL);
-    this->SetScrollbar(wxVERTICAL,50,10,110);
-    this->SetScrollbar(wxHORIZONTAL,50,10,110);
+//    this->SetWindowStyle(wxVSCROLL | wxHSCROLL);
+//    this->SetScrollbar(wxVERTICAL,50,10,110);
+//    this->SetScrollbar(wxHORIZONTAL,50,10,110);
+//    this->EnableScrolling(true,true);
+//    this->ShowScrollbars (wxSHOW_SB_ALWAYS,wxSHOW_SB_ALWAYS);
     this->m_drawing_view.set_scale(0.01);
     auto doc = wxGetApp().get_document();
     m_last_aircraft_position = doc->get_aircraft_xyz_position();
@@ -50,7 +52,7 @@ void view::OnPaint(wxPaintEvent & event)
    wxPaintDC dc(this);
    dc.SetBackground(* wxWHITE_BRUSH); // sets background brush but doesnt clear
    dc.Clear(); //       need to invoke to clear using current background brush
-   
+  // dc.SetDeviceOrigin(-200,-200);
    quan::gx::wxwidgets::graphics_context wc{
       &dc, 
       &this->m_drawing,
@@ -61,10 +63,9 @@ void view::OnPaint(wxPaintEvent & event)
    quan::two_d::box<mm> tracker{mm{-250},mm{250},mm{250},mm{-250}};
    wc.draw_box({tracker});
 
-    
-
+ 
    auto doc = wxGetApp().get_document();
-   auto ap = doc->get_aircraft_xyz_position();
+   auto ap = doc->get_aircraft_xyz_position() ;
    aircraft_symbol sym{ap,doc->get_aircraft_heading()};
    sym.draw(wc);
 
@@ -175,7 +176,7 @@ void view::OnMouseMove(wxMouseEvent & event)
 //         >());
 
          QuanTrackerSimEvent x{wxEvent_AircraftPositionChanged};
-         app.get_panel()->AddPendingEvent(x);
+         app.get_panel()->GetEventHandler()->AddPendingEvent(x);
          this->Refresh();
       }
    }

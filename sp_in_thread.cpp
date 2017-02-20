@@ -43,7 +43,7 @@ namespace {
                auto & app = wxGetApp();
                app.get_document()->m_remote_tracker_params.distance = quan::length::m{v};
                QuanTrackerSimEvent x{wxEvent_RemoteDistanceChanged};
-               app.get_panel()->AddPendingEvent(x);
+               app.get_panel()->GetEventHandler()->AddPendingEvent(x);
             }
          }
          break;  
@@ -54,7 +54,7 @@ namespace {
                auto & app = wxGetApp();
                app.get_document()->m_remote_tracker_params.bearing = quan::angle::deg{v};
                QuanTrackerSimEvent x{wxEvent_RemoteBearingChanged};
-               app.get_panel()->AddPendingEvent(x);
+               app.get_panel()->GetEventHandler()->AddPendingEvent(x);
             }
          }
          break;
@@ -64,7 +64,7 @@ namespace {
                auto & app = wxGetApp();
                app.get_document()->m_remote_tracker_params.elevation = quan::angle::deg{v};
                QuanTrackerSimEvent x{wxEvent_RemoteElevationChanged};
-               app.get_panel()->AddPendingEvent(x);
+               app.get_panel()->GetEventHandler()->AddPendingEvent(x);
             }
          }
          break;
