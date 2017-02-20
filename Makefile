@@ -20,20 +20,20 @@ APPLICATION_NAME = quantracker_sim.exe
 
 ######################## #######################################
 # mod these to your compiler must be a C++11 gcc compiler
-CC = /opt/gcc-4.7.2/bin/g++
-LD = /opt/gcc-4.7.2/bin/g++
+CC = g++
+LD = g++
 # Modify this to your quan include path
-QUAN_INCLUDE_PATH = /home/andy/website/quan-trunk/
+QUAN_INCLUDE_PATH = /home/andy/cpp/projects/quan-trunk/
 
 # try comment this ...
-C_INCLUDE_PATH = /usr/include/i386-linux-gnu
+#C_INCLUDE_PATH = /usr/include/i386-linux-gnu
 
 # and uncomment this if you get compile errors
 # On my Ubuntu system the C++ headers and default compiler are not c++11
 # The C_INCLUDE_PATH is required to get it to compile
 
-#INCLUDES = -I$(QUAN_INCLUDE_PATH) 
-INCLUDES = -I$(QUAN_INCLUDE_PATH) -I$(C_INCLUDE_PATH)
+INCLUDES = -I$(QUAN_INCLUDE_PATH) 
+#INCLUDES = -I$(QUAN_INCLUDE_PATH) -I$(C_INCLUDE_PATH)
 
 #########################################################
 
@@ -51,7 +51,7 @@ quan_gx_wxwidgets_objects = $(patsubst %.cpp,%.o,$(quan_gx_wxwidgets_sources))
 objects = $(local_objects) $(quan_gx_wxwidgets_objects) serial_port.o static_rgb_colours.o
 
 # could add -Os etc here
-CFLAGS = -Wall -std=c++11 -Os
+CFLAGS = -Wall -std=c++11 -Os -fmax-errors=1 -g
 
 LFLAGS =
 
