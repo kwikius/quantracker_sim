@@ -9,9 +9,16 @@ The code is written in C++11 , so you will need gcc4.7 or above to compile and b
 
 Currently builds for Linux only.
 
+Release notes
+
+       Now requires wxWidgets 3.x
+Bugs
+       In Ubuntu you may need to Disable Overlay scrollbars, as overlay scrollbars dont seem to appear.
+       Using Thumbtrack or arrows doesnt work correctly (Just needs TODO the requisite handlers)
+
 Other dependencies:
  
-	wxWidgets http://www.wxwidgets.org/
+	wxWidgets http://www.wxwidgets.org/ 
 	my quan library:  https://github.com/kwikius/quan-trunk
 
 

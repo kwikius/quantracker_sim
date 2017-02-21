@@ -9,7 +9,7 @@
 
 #include "aircraft_symbol.hpp"
 
-BEGIN_EVENT_TABLE(view,wxWindow)
+BEGIN_EVENT_TABLE(view,wxScrolledWindow)
 
  EVT_PAINT(view::OnPaint)
  EVT_SIZE(view::OnSize)
@@ -21,16 +21,19 @@ BEGIN_EVENT_TABLE(view,wxWindow)
 END_EVENT_TABLE()
 
 view::view(wxWindow* parent)
-: wxScrolledCanvas(parent, wxID_ANY)
+: wxScrolledWindow(parent)
 ,m_aircraft_selected{false}
 
 {
     window_ids::view = this->GetId();
-//    this->SetWindowStyle(wxVSCROLL | wxHSCROLL);
-//    this->SetScrollbar(wxVERTICAL,50,10,110);
-//    this->SetScrollbar(wxHORIZONTAL,50,10,110);
-//    this->EnableScrolling(true,true);
-//    this->ShowScrollbars (wxSHOW_SB_ALWAYS,wxSHOW_SB_ALWAYS);
+
+    // TODO make this size of the drawing
+    this->SetVirtualSize(10000,8000);
+    // rate in pixels per scrollunit
+    this->SetScrollRate(100,100);
+    // in scrollunits
+    this->Scroll(50,50);
+    this->ShowScrollbars (wxSHOW_SB_ALWAYS,wxSHOW_SB_ALWAYS);
     this->m_drawing_view.set_scale(0.01);
     auto doc = wxGetApp().get_document();
     m_last_aircraft_position = doc->get_aircraft_xyz_position();

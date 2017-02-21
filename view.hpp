@@ -16,7 +16,7 @@
 #include "drawing.hpp"
 //#include "aerofoilDoc.hpp"
 
-   struct view : wxScrolledCanvas{
+   struct view : wxScrolledWindow{
 
       view(wxWindow* parent);
 
